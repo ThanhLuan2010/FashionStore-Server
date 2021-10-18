@@ -6,7 +6,7 @@ var products = require('../modal/ProductModal')
 const Action = require ('../actions/CartAction')
 
 /* lấy danh sách giỏ hàng */
-router.get('/getCartList/:email',async(req, res)=> {
+router.get('/getCartList',async(req, res)=> {
     const dataCart = await products.find({email:req.body.email}).select('image name price originPrice quantity type key email')
     res.send({
         code:200,
@@ -36,7 +36,7 @@ router.post('/addToCart',async(req, res)=> {
   });
 
 //xoá khỏi giỏ hàng
-router.delete('/removeCart/:key/:email',async(req, res)=>{
+router.post('/removeCart',async(req, res)=>{
     const data = await Action.deleteCart({"key":req.body.key,"email":req.body.email})
     res.send({
       code:200,
@@ -46,10 +46,10 @@ router.delete('/removeCart/:key/:email',async(req, res)=>{
   });
 
 // thay đổi số lượng
-router.put('/changQuantity/:key/:email',async(req, res)=> {
+router.post('/changQuantity',async(req, res)=> {
   //truyền quantity vào body
   let body=req.body
-  let params ={"key":req.params.key, "email":req.params.email}
+  let params ={"key":req.body.key, "email":req.body.email}
   const data = await Action.changeQuantity(params,body)
   res.send({
       code:200,
