@@ -6,7 +6,7 @@ var products = require('../modal/ProductModal')
 const Action = require ('../actions/CartAction')
 
 /* lấy danh sách giỏ hàng */
-router.get('/getCartList',async(req, res)=> {
+router.post('/getCartList',async(req, res)=> {
     const dataCart = await products.find({email:req.body.email}).select('image name price originPrice quantity type key email')
     res.send({
         code:200,
