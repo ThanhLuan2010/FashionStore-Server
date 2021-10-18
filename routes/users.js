@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var users = require("../modal/UserModal");
 const Action = require("../actions/UserAction");
+
 /* đăng kí */
 
 router.post("/register", async (req, res) => {
@@ -33,7 +34,8 @@ router.post("/register", async (req, res) => {
 });
 
 // đăng nhập
-router.post("/login/:email/:password", async (req, res) => {
+router.post("/login", async (req, res) => {
+  console.log(req.body)
   const datauser = await users.find({}).select("email password");
   const userfind = datauser.find(
     (item) =>
@@ -55,7 +57,7 @@ router.post("/login/:email/:password", async (req, res) => {
 });
 
 // đổi thong tin
-router.put("/changeinfo/:email", async (req, res) => {
+router.post("/changeinfo/:email", async (req, res) => {
   try {
     let body = req.body;
     const data = await Action.updateInfo(req.params.email, body);
