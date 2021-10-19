@@ -23,7 +23,7 @@ router.post('/addOrder', async(req, res)=> {
   })
 });
 
-router.get('/getOrderList/:email',async(req, res)=> {
+router.post('/getOrderList',async(req, res)=> {
   const orderList = await Order.find({email:req.body.email}).select('status price orders shippingInfo customerInfo orderCode')
   res.send({
       code:200,

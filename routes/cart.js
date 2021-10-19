@@ -8,6 +8,7 @@ const Action = require ('../actions/CartAction')
 /* lấy danh sách giỏ hàng */
 router.post('/getCartList',async(req, res)=> {
     const dataCart = await products.find({email:req.body.email}).select('image name price originPrice quantity type key email')
+    
     res.send({
         code:200,
         data:dataCart,
