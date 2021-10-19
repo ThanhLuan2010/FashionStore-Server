@@ -3,7 +3,7 @@ var router = express.Router();
 
 const Action = require ('../actions/OrderHistoryAction')
 var Order = require('../modal/OrderHistoryModal')
-
+var Cart = require('../modal/ProductModal')
 /* đặt hàng thành công */
 router.post('/addOrder', async(req, res)=> {
   var body = Order({
@@ -16,6 +16,7 @@ router.post('/addOrder', async(req, res)=> {
     orderCode:req.body.orderCode
   })
   const data =await Action.addOrder(body)
+  await Cart.deleteMany({email:req.body.email})
   res.send({
     code:200,
     data:data,
